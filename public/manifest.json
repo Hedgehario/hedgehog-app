@@ -1,0 +1,27 @@
+{
+  "name": "Hariny - ハリネズミ健康管理アプリ",
+  "short_name": "Hariny",
+  "description": "ハリネズミの健康状態や日々の記録を簡単に管理できるPWAアプリです",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8DC",
+  "theme_color": "#D2691E",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle", "utilities"],
+  "lang": "ja",
+  "dir": "ltr"
+}

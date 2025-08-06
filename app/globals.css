@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Hedgehog-themed color palette */
+  --hedgehog-brown: #8B4513;
+  --hedgehog-beige: #F5DEB3;
+  --hedgehog-orange: #D2691E;
+  --hedgehog-cream: #FFF8DC;
+  --hedgehog-dark: #5D4E37;
+  --hedgehog-light: #FAEBD7;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 24 9.8% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 9.8% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 9.8% 10%;
+    --primary: 24 59% 45%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 35 32% 91%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 35 32% 91%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 32 88% 50%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 24 59% 45%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 24 9.8% 10%;
+    --foreground: 0 0% 98%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 24 9.8% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 32 88% 50%;
+    --primary-foreground: 24 9.8% 10%;
+    --secondary: 24 9.8% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 24 9.8% 15%;
+    --muted-foreground: 25 5.3% 63.9%;
+    --accent: 32 88% 50%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 24 9.8% 15%;
+    --input: 24 9.8% 15%;
+    --ring: 32 88% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .hedgehog-gradient {
+    background: linear-gradient(135deg, var(--hedgehog-cream) 0%, var(--hedgehog-beige) 100%);
+  }
+  
+  .hedgehog-card {
+    @apply bg-white rounded-2xl shadow-lg border border-amber-100 hover:shadow-xl transition-all duration-300;
+  }
+  
+  .hedgehog-button {
+    @apply bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg;
+  }
+}
+
+/* PWA specific styles */
+@media (display-mode: standalone) {
+  body {
+    user-select: none;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--hedgehog-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hedgehog-orange);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hedgehog-brown);
+}
