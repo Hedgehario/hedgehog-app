@@ -37,8 +37,8 @@ export default function HomePage() {
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center">
-                <HedgehogIcon className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 rounded-full overflow-hidden">
+                <HedgehogIcon className="w-full h-full" width={40} height={40} />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-800">Hariness</h1>
