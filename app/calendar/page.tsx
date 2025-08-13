@@ -83,16 +83,22 @@ export default function CalendarPage() {
 
   const getEventsForDate = (date: Date) => {
     const dateStr = formatDate(date);
-    let filteredEvents = events.filter(event => event.date === dateStr);
+    let filteredEvents = events.filter(event => {
+      console.log('Checking event:', event.date, 'against:', dateStr);
+      return event.date === dateStr;
+    });
     
     if (selectedPet !== 'all') {
-      filteredEvents = filteredEvents.filter(event => event.pet === selectedPet);
+      filteredEvents = filteredEvents.filter(event => 
+        event.pet === selectedPet || event.type === 'birthday'
+      );
     }
     
     if (selectedEventType !== 'all') {
       filteredEvents = filteredEvents.filter(event => event.type === selectedEventType);
     }
     
+    console.log('Filtered events for', dateStr, ':', filteredEvents);
     return filteredEvents;
   };
 
@@ -285,25 +291,32 @@ export default function CalendarPage() {
                   {days.map((day, index) => {
                     const dayEvents = getEventsForDate(day);
                     const isSelected = formatDate(day) === formatDate(selectedDate);
+                    const hasBirthday = dayEvents.some(event => event.type === 'birthday');
                     
                     return (
                       <button
                         key={index}
                         onClick={() => setSelectedDate(day)}
                         className={`
-                          relative p-2 text-sm rounded-lg transition-all duration-200 min-h-[40px]
+                          relative p-2 text-sm rounded-lg transition-all duration-200 min-h-[40px] flex flex-col items-center justify-center
                           ${isToday(day) ? 'bg-gradient-to-br from-amber-400 to-orange-500 text-white font-bold' : ''}
                           ${isSelected && !isToday(day) ? 'bg-amber-100 border border-amber-300' : ''}
                           ${!isSelectedMonth(day) ? 'text-gray-300' : 'text-gray-700 hover:bg-amber-50'}
+                          ${hasBirthday && !isToday(day) ? 'bg-pink-50 border border-pink-200' : ''}
                         `}
                       >
-                        <span>{day.getDate()}</span>
+                        <div className="flex items-center space-x-1">
+                          <span>{day.getDate()}</span>
+                          {hasBirthday && <span className="text-xs">🎂</span>}
+                        </div>
                         {dayEvents.length > 0 && (
                           <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-1">
                             {dayEvents.slice(0, 3).map((event, i) => (
                               <div
                                 key={i}
-                                className={`w-1.5 h-1.5 rounded-full ${getStatusColor(event.status)}`}
+                                className={`w-1.5 h-1.5 rounded-full ${
+                                  event.type === 'birthday' ? 'bg-pink-500' : getStatusColor(event.status)
+                                }`}
                               />
                             ))}
                             {dayEvents.length > 3 && (
