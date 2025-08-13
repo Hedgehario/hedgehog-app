@@ -23,6 +23,8 @@ import {
   CheckCircle,
   User,
   Stethoscope,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import Link from "next/link";
 import Navigation from "@/components/layout/Navigation";
@@ -31,6 +33,7 @@ import Image from "next/image";
 
 export default function HomePage() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showAllPets, setShowAllPets] = useState(false);
   const [todayStats, setTodayStats] = useState({
     totalPets: 2,
     completedTasks: 5,
@@ -41,6 +44,28 @@ export default function HomePage() {
     lastWeighing: "3日前",
     activeUsers: 1,
   });
+
+  // ペットデータ（実際のデータに置き換え）
+  const allPets = [
+    {
+      id: 'momo',
+      name: 'モモ',
+      photo: 'https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=400',
+      status: 'healthy',
+      weight: '320g'
+    },
+    {
+      id: 'coco',
+      name: 'ココ',
+      photo: 'https://images.pexels.com/photos/1865713/pexels-photo-1865713.jpeg?auto=compress&cs=tinysrgb&w=400',
+      status: 'attention',
+      weight: '380g'
+    }
+    // 3匹目以降のデータがある場合はここに追加
+  ];
+
+  const displayedPets = showAllPets ? allPets : allPets.slice(0, 2);
+  const hasMorePets = allPets.length > 2;
 
   const [recentActivities, setRecentActivities] = useState([
     {
@@ -292,57 +317,59 @@ export default function HomePage() {
         {/* Our Pets */}
         <Card className="hedgehog-card mb-6">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg font-semibold text-gray-800 flex items-center">
-              <User className="w-5 h-5 mr-2 text-amber-600" />
-              うちの子たち
+            <CardTitle className="text-lg font-semibold text-gray-800 flex items-center justify-between">
+              <div className="flex items-center">
+                <User className="w-5 h-5 mr-2 text-amber-600" />
+                うちの子たち
+              </div>
+              {hasMorePets && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowAllPets(!showAllPets)}
+                  className="text-amber-600 hover:bg-amber-50"
+                >
+                  {showAllPets ? (
+                    <>
+                      <ChevronUp className="w-4 h-4 mr-1" />
+                      閉じる
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="w-4 h-4 mr-1" />
+                      すべて表示 ({allPets.length})
+                    </>
+                  )}
+                </Button>
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 pt-0">
             <div className="grid grid-cols-2 gap-3">
-              <Link href="/pets/momo">
-                <div className="hedgehog-card cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden">
-                  <div className="aspect-square relative">
-                    <Image
-                      src="https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=400"
-                      alt="モモ"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                    <div className="absolute bottom-2 left-2 right-2">
-                      <div className="text-white font-bold text-sm mb-1">モモ</div>
-                      <div className="flex items-center justify-between">
-                        <Badge className="bg-green-100 text-green-800 text-xs">
-                          健康
-                        </Badge>
-                        <div className="text-white/80 text-xs">320g</div>
+              {displayedPets.map((pet) => (
+                <Link key={pet.id} href={`/pets/${pet.id}`}>
+                  <div className="hedgehog-card cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden">
+                    <div className="aspect-square relative">
+                      <Image
+                        src={pet.photo}
+                        alt={pet.name}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                      <div className="absolute bottom-2 left-2 right-2">
+                        <div className="text-white font-bold text-sm mb-1">{pet.name}</div>
+                        <div className="flex items-center justify-between">
+                          <Badge className={pet.status === 'healthy' ? "bg-green-100 text-green-800 text-xs" : "bg-yellow-100 text-yellow-800 text-xs"}>
+                            {pet.status === 'healthy' ? '健康' : '要注意'}
+                          </Badge>
+                          <div className="text-white/80 text-xs">{pet.weight}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-              <Link href="/pets/coco">
-                <div className="hedgehog-card cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden">
-                  <div className="aspect-square relative">
-                    <Image
-                      src="https://images.pexels.com/photos/1865713/pexels-photo-1865713.jpeg?auto=compress&cs=tinysrgb&w=400"
-                      alt="ココ"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                    <div className="absolute bottom-2 left-2 right-2">
-                      <div className="text-white font-bold text-sm mb-1">ココ</div>
-                      <div className="flex items-center justify-between">
-                        <Badge className="bg-yellow-100 text-yellow-800 text-xs">
-                          要注意
-                        </Badge>
-                        <div className="text-white/80 text-xs">380g</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              ))}
             </div>
             <div className="mt-3 text-center">
               <div className="text-2xl font-bold text-amber-600 mb-1">
