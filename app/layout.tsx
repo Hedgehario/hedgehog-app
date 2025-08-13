@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   themeColor: "#D2691E",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   icons: {
-    icon: "/icons/jpg/かわいいハリネズミのキャラクター.jpg",
-    apple: "/icons/jpg/かわいいハリネズミのキャラクター.jpg",
+    icon: "/icons/icon-192x192.png",
+    apple: "/icons/icon-192x192.png",
   },
 };
 
@@ -29,7 +29,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <link
           rel="apple-touch-icon"
-          href="/icons/jpg/かわいいハリネズミのキャラクター.jpg"
+          href="/icons/icon-192x192.png"
         />
         <meta name="theme-color" content="#D2691E" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

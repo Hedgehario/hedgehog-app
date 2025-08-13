@@ -16,7 +16,7 @@ export default function HedgehogIcon({
 }: HedgehogIconProps) {
   return (
     <Image
-      src="/icons/jpg/かわいいハリネズミのキャラクター.jpg"
+      src="/icons/icon-192x192.png"
       alt="かわいいハリネズミのキャラクター"
       width={width}
       height={height}
