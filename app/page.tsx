@@ -60,8 +60,28 @@ export default function HomePage() {
       photo: 'https://images.pexels.com/photos/1865713/pexels-photo-1865713.jpeg?auto=compress&cs=tinysrgb&w=400',
       status: 'attention',
       weight: '380g'
+    },
+    {
+      id: 'hana',
+      name: 'ハナ',
+      photo: 'https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=400',
+      status: 'healthy',
+      weight: '295g'
+    },
+    {
+      id: 'sora',
+      name: 'ソラ',
+      photo: 'https://images.pexels.com/photos/1865713/pexels-photo-1865713.jpeg?auto=compress&cs=tinysrgb&w=400',
+      status: 'concern',
+      weight: '410g'
+    },
+    {
+      id: 'yuki',
+      name: 'ユキ',
+      photo: 'https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=400',
+      status: 'healthy',
+      weight: '335g'
     }
-    // 3匹目以降のデータがある場合はここに追加
   ];
 
   const displayedPets = showAllPets ? allPets : allPets.slice(0, 2);
