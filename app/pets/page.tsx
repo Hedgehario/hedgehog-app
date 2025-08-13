@@ -37,7 +37,9 @@ export default function PetsPage() {
       lastWeight: '380g',
       lastWeightDate: '2024-01-14',
       healthStatus: 'attention',
-      insurance: null
+      insurance: null,
+      adoptionStore: 'ペットランド新宿店',
+      storeLocation: '東京都新宿区'
     }
   ]);
 
@@ -148,6 +150,17 @@ export default function PetsPage() {
                         <div className="text-sm font-medium text-gray-800">{pet.lastWeight}</div>
                       </div>
                     </div>
+
+                    {/* お迎え情報 */}
+                    {pet.adoptionStore && (
+                      <div className="mb-4">
+                        <div className="text-xs text-gray-500 mb-1">お迎え店舗</div>
+                        <div className="text-sm font-medium text-gray-800">{pet.adoptionStore}</div>
+                        {pet.storeLocation && (
+                          <div className="text-xs text-gray-600">{pet.storeLocation}</div>
+                        )}
+                      </div>
+                    )}
 
                     {/* Insurance Info */}
                     {pet.insurance && (
