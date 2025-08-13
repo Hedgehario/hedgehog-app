@@ -35,11 +35,11 @@ export default function CalendarPage() {
 
   const events = [
     // 誕生日イベント（自動生成）
-    { id: 'birthday-momo', date: '2024-03-15', pet: 'momo', petName: 'モモ', type: 'birthday', title: 'モモの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '2歳の誕生日おめでとう！' },
-    { id: 'birthday-coco', date: '2024-12-10', pet: 'coco', petName: 'ココ', type: 'birthday', title: 'ココの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '3歳の誕生日おめでとう！' },
-    { id: 'birthday-hana', date: '2024-07-22', pet: 'hana', petName: 'ハナ', type: 'birthday', title: 'ハナの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '1歳の誕生日おめでとう！' },
-    { id: 'birthday-sora', date: '2024-09-05', pet: 'sora', petName: 'ソラ', type: 'birthday', title: 'ソラの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '2歳の誕生日おめでとう！' },
-    { id: 'birthday-yuki', date: '2024-01-18', pet: 'yuki', petName: 'ユキ', type: 'birthday', title: 'ユキの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '1歳の誕生日おめでとう！' },
+    { id: 'birthday-momo', date: '2025-03-15', pet: 'momo', petName: 'モモ', type: 'birthday', title: 'モモの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '2歳の誕生日おめでとう！' },
+    { id: 'birthday-coco', date: '2025-12-10', pet: 'coco', petName: 'ココ', type: 'birthday', title: 'ココの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '3歳の誕生日おめでとう！' },
+    { id: 'birthday-hana', date: '2025-07-22', pet: 'hana', petName: 'ハナ', type: 'birthday', title: 'ハナの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '1歳の誕生日おめでとう！' },
+    { id: 'birthday-sora', date: '2025-09-05', pet: 'sora', petName: 'ソラ', type: 'birthday', title: 'ソラの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '2歳の誕生日おめでとう！' },
+    { id: 'birthday-yuki', date: '2025-01-18', pet: 'yuki', petName: 'ユキ', type: 'birthday', title: 'ユキの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '1歳の誕生日おめでとう！' },
     
     // 今日の予定
     { id: 1, date: formatDate(new Date()), pet: 'momo', petName: 'モモ', type: 'health', title: '体重測定', time: '14:00', status: 'pending', priority: 'medium', description: '週1回の定期体重測定' },

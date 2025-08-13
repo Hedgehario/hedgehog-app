@@ -413,10 +413,7 @@ export default function HomePage() {
                           <div className="text-white/80 text-xs">{pet.weight}</div>
                         </div>
                         <div className="text-white/70 text-xs mt-1 flex items-center justify-between">
-                          <span>{calculateAge(pet.birthDate)}</span>
-                          {isBirthday(pet.birthDate) && (
-                            <span className="text-yellow-300">🎂</span>
-                          )}
+                          <span>愛らしい子</span>
                         </div>
                       </div>
                     </div>

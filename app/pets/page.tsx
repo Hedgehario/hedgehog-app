@@ -146,6 +146,16 @@ export default function PetsPage() {
                         <div className="text-sm font-medium text-gray-800">{calculateAge(pet.birthDate)}</div>
                       </div>
                       <div>
+                        <div className="text-xs text-gray-500 mb-1">生年月日</div>
+                        <div className="text-sm font-medium text-gray-800">
+                          {new Date(pet.birthDate).toLocaleDateString('ja-JP', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </div>
+                      </div>
+                      <div>
                         <div className="text-xs text-gray-500 mb-1">最新体重</div>
                         <div className="text-sm font-medium text-gray-800">{pet.lastWeight}</div>
                       </div>
