@@ -52,37 +52,64 @@ export default function HomePage() {
       name: 'モモ',
       photo: 'https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=400',
       status: 'healthy',
-      weight: '320g'
+      weight: '320g',
+      birthDate: '2023-03-15'
     },
     {
       id: 'coco',
       name: 'ココ',
       photo: 'https://images.pexels.com/photos/1865713/pexels-photo-1865713.jpeg?auto=compress&cs=tinysrgb&w=400',
       status: 'attention',
-      weight: '380g'
+      weight: '380g',
+      birthDate: '2022-12-10'
     },
     {
       id: 'hana',
       name: 'ハナ',
       photo: 'https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=400',
       status: 'healthy',
-      weight: '295g'
+      weight: '295g',
+      birthDate: '2023-07-22'
     },
     {
       id: 'sora',
       name: 'ソラ',
       photo: 'https://images.pexels.com/photos/1865713/pexels-photo-1865713.jpeg?auto=compress&cs=tinysrgb&w=400',
       status: 'concern',
-      weight: '410g'
+      weight: '410g',
+      birthDate: '2022-09-05'
     },
     {
       id: 'yuki',
       name: 'ユキ',
       photo: 'https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=400',
       status: 'healthy',
-      weight: '335g'
+      weight: '335g',
+      birthDate: '2023-01-18'
     }
   ];
+
+  // 年齢計算関数
+  const calculateAge = (birthDate: string) => {
+    const birth = new Date(birthDate);
+    const today = new Date();
+    const diffTime = Math.abs(today.getTime() - birth.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const months = Math.floor(diffDays / 30);
+    const days = diffDays % 30;
+    
+    if (months > 0) {
+      return `${months}ヶ月${days > 0 ? days + '日' : ''}`;
+    }
+    return `${days}日`;
+  };
+
+  // 今日が誕生日かチェック
+  const isBirthday = (birthDate: string) => {
+    const birth = new Date(birthDate);
+    const today = new Date();
+    return birth.getMonth() === today.getMonth() && birth.getDate() === today.getDate();
+  };
 
   const displayedPets = showAllPets ? allPets : allPets.slice(0, 2);
   const hasMorePets = allPets.length > 2;
@@ -384,6 +411,12 @@ export default function HomePage() {
                             {pet.status === 'healthy' ? '健康' : '要注意'}
                           </Badge>
                           <div className="text-white/80 text-xs">{pet.weight}</div>
+                        </div>
+                        <div className="text-white/70 text-xs mt-1 flex items-center justify-between">
+                          <span>{calculateAge(pet.birthDate)}</span>
+                          {isBirthday(pet.birthDate) && (
+                            <span className="text-yellow-300">🎂</span>
+                          )}
                         </div>
                       </div>
                     </div>

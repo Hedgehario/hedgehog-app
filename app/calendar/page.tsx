@@ -29,10 +29,18 @@ export default function CalendarPage() {
     { id: 'vet', name: '通院' },
     { id: 'grooming', name: 'グルーミング' },
     { id: 'cleaning', name: '掃除' },
-    { id: 'reminder', name: 'リマインダー' }
+    { id: 'reminder', name: 'リマインダー' },
+    { id: 'birthday', name: '誕生日' }
   ];
 
   const events = [
+    // 誕生日イベント（自動生成）
+    { id: 'birthday-momo', date: '2024-03-15', pet: 'momo', petName: 'モモ', type: 'birthday', title: 'モモの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '2歳の誕生日おめでとう！' },
+    { id: 'birthday-coco', date: '2024-12-10', pet: 'coco', petName: 'ココ', type: 'birthday', title: 'ココの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '3歳の誕生日おめでとう！' },
+    { id: 'birthday-hana', date: '2024-07-22', pet: 'hana', petName: 'ハナ', type: 'birthday', title: 'ハナの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '1歳の誕生日おめでとう！' },
+    { id: 'birthday-sora', date: '2024-09-05', pet: 'sora', petName: 'ソラ', type: 'birthday', title: 'ソラの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '2歳の誕生日おめでとう！' },
+    { id: 'birthday-yuki', date: '2024-01-18', pet: 'yuki', petName: 'ユキ', type: 'birthday', title: 'ユキの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '1歳の誕生日おめでとう！' },
+    
     // 今日の予定
     { id: 1, date: formatDate(new Date()), pet: 'momo', petName: 'モモ', type: 'health', title: '体重測定', time: '14:00', status: 'pending', priority: 'medium', description: '週1回の定期体重測定' },
     { id: 2, date: formatDate(new Date()), pet: 'coco', petName: 'ココ', type: 'grooming', title: '爪切り', time: '16:00', status: 'pending', priority: 'high', description: '前回から2週間経過' },
@@ -95,6 +103,7 @@ export default function CalendarPage() {
       case 'grooming': return 'bg-blue-100 text-blue-800';
       case 'cleaning': return 'bg-yellow-100 text-yellow-800';
       case 'reminder': return 'bg-purple-100 text-purple-800';
+      case 'birthday': return 'bg-pink-100 text-pink-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -106,6 +115,7 @@ export default function CalendarPage() {
       case 'grooming': return 'グルーミング';
       case 'cleaning': return '掃除';
       case 'reminder': return 'リマインダー';
+      case 'birthday': return '誕生日';
       default: return type;
     }
   };
