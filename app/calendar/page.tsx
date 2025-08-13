@@ -44,7 +44,18 @@ export default function CalendarPage() {
 
   // 毎年の誕生日イベントを生成する関数
   const generateBirthdayEvents = () => {
-    const birthdayEvents = [];
+    const birthdayEvents: Array<{
+      id: string;
+      date: string;
+      pet: string;
+      petName: string;
+      type: string;
+      title: string;
+      time: string;
+      status: string;
+      priority: string;
+      description: string;
+    }> = [];
     const currentYear = new Date().getFullYear();
     
     // 現在年から10年先まで誕生日イベントを生成
