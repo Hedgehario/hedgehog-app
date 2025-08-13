@@ -226,6 +226,7 @@ export default function HealthPage() {
       setHealthData({ eyeCondition: '', earCondition: '', skinCondition: '', activityLevel: '', overallCondition: '', notes: '' });
     }
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
       {/* Header */}
@@ -361,361 +362,33 @@ export default function HealthPage() {
               <CardContent className="p-4">
                 <h3 className="font-semibold text-gray-800 mb-3">クイック記録</h3>
                 <div className="grid grid-cols-2 gap-3">
-                  <Dialog open={openModal === 'food'} onOpenChange={(open) => setOpenModal(open ? 'food' : '')}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="w-full h-16 flex flex-col items-center justify-center space-y-1 border-2 border-green-200 hover:bg-green-50">
-                        <Utensils className="w-5 h-5 text-green-600" />
-                        <span className="text-xs text-green-700">食事記録</span>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-md">
-                      <DialogHeader>
-                        <DialogTitle className="flex items-center">
-                          <Utensils className="w-5 h-5 mr-2 text-green-600" />
-                          食事記録
-                        </DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">食事の種類</Label>
-                          <Select value={foodData.foodType} onValueChange={(value) => setFoodData({...foodData, foodType: value})}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="食事の種類を選択" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="pellets">ペレット</SelectItem>
-                              <SelectItem value="insects">昆虫</SelectItem>
-                              <SelectItem value="vegetables">野菜</SelectItem>
-                              <SelectItem value="fruits">果物</SelectItem>
-                              <SelectItem value="treats">おやつ</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">給餌量</Label>
-                          <Input
-                            placeholder="例：大さじ1杯、10g"
-                            value={foodData.amount}
-                            onChange={(e) => setFoodData({...foodData, amount: e.target.value})}
-                          />
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">食欲</Label>
-                          <RadioGroup value={foodData.appetite} onValueChange={(value) => setFoodData({...foodData, appetite: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="excellent" id="appetite-excellent" />
-                              <Label htmlFor="appetite-excellent" className="text-sm">とても良い</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="good" id="appetite-good" />
-                              <Label htmlFor="appetite-good" className="text-sm">良い</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="fair" id="appetite-fair" />
-                              <Label htmlFor="appetite-fair" className="text-sm">普通</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="poor" id="appetite-poor" />
-                              <Label htmlFor="appetite-poor" className="text-sm">食欲がない</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                            完食率: {foodData.completionRate[0]}%
-                          </Label>
-                          <Slider
-                            value={foodData.completionRate}
-                            onValueChange={(value) => setFoodData({...foodData, completionRate: value})}
-                            max={100}
-                            step={10}
-                            className="w-full"
-                          />
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">メモ</Label>
-                          <Textarea
-                            placeholder="食事の様子や気になることを記録"
-                            value={foodData.notes}
-                            onChange={(e) => setFoodData({...foodData, notes: e.target.value})}
-                          />
-                        </div>
-                        <Button onClick={() => handleSaveRecord('food')} className="hedgehog-button w-full">
-                          記録を保存
-                        </Button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <Link href="/health-record/food">
+                    <Button variant="outline" className="w-full h-16 flex flex-col items-center justify-center space-y-1 border-2 border-green-200 hover:bg-green-50">
+                      <Utensils className="w-5 h-5 text-green-600" />
+                      <span className="text-xs text-green-700">食事記録</span>
+                    </Button>
+                  </Link>
 
-                  <Dialog open={openModal === 'weight'} onOpenChange={(open) => setOpenModal(open ? 'weight' : '')}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="w-full h-16 flex flex-col items-center justify-center space-y-1 border-2 border-purple-200 hover:bg-purple-50">
-                        <Weight className="w-5 h-5 text-purple-600" />
-                        <span className="text-xs text-purple-700">体重測定</span>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-md">
-                      <DialogHeader>
-                        <DialogTitle className="flex items-center">
-                          <Weight className="w-5 h-5 mr-2 text-purple-600" />
-                          体重測定
-                        </DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div className="grid grid-cols-3 gap-2">
-                          <div className="col-span-2">
-                            <Label className="text-sm font-medium text-gray-700 mb-2 block">体重</Label>
-                            <Input
-                              type="number"
-                              step="0.1"
-                              placeholder="320.5"
-                              value={weightData.weight}
-                              onChange={(e) => setWeightData({...weightData, weight: e.target.value})}
-                            />
-                          </div>
-                          <div>
-                            <Label className="text-sm font-medium text-gray-700 mb-2 block">単位</Label>
-                            <Select value={weightData.unit} onValueChange={(value) => setWeightData({...weightData, unit: value})}>
-                              <SelectTrigger>
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="g">g</SelectItem>
-                                <SelectItem value="kg">kg</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">体調</Label>
-                          <RadioGroup value={weightData.condition} onValueChange={(value) => setWeightData({...weightData, condition: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="excellent" id="condition-excellent" />
-                              <Label htmlFor="condition-excellent" className="text-sm">とても良い</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="good" id="condition-good" />
-                              <Label htmlFor="condition-good" className="text-sm">良い</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="fair" id="condition-fair" />
-                              <Label htmlFor="condition-fair" className="text-sm">普通</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="concern" id="condition-concern" />
-                              <Label htmlFor="condition-concern" className="text-sm">心配</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">メモ</Label>
-                          <Textarea
-                            placeholder="体重測定時の様子や気になることを記録"
-                            value={weightData.notes}
-                            onChange={(e) => setWeightData({...weightData, notes: e.target.value})}
-                          />
-                        </div>
-                        <Button onClick={() => handleSaveRecord('weight')} className="hedgehog-button w-full">
-                          記録を保存
-                        </Button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <Link href="/health-record/weight">
+                    <Button variant="outline" className="w-full h-16 flex flex-col items-center justify-center space-y-1 border-2 border-purple-200 hover:bg-purple-50">
+                      <Weight className="w-5 h-5 text-purple-600" />
+                      <span className="text-xs text-purple-700">体重測定</span>
+                    </Button>
+                  </Link>
 
-                  <Dialog open={openModal === 'water'} onOpenChange={(open) => setOpenModal(open ? 'water' : '')}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="w-full h-16 flex flex-col items-center justify-center space-y-1 border-2 border-blue-200 hover:bg-blue-50">
-                        <Droplets className="w-5 h-5 text-blue-600" />
-                        <span className="text-xs text-blue-700">飲水記録</span>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-md">
-                      <DialogHeader>
-                        <DialogTitle className="flex items-center">
-                          <Droplets className="w-5 h-5 mr-2 text-blue-600" />
-                          飲水記録
-                        </DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">飲水量</Label>
-                          <Input
-                            placeholder="例：50ml、普通"
-                            value={waterData.amount}
-                            onChange={(e) => setWaterData({...waterData, amount: e.target.value})}
-                          />
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">飲水頻度</Label>
-                          <RadioGroup value={waterData.frequency} onValueChange={(value) => setWaterData({...waterData, frequency: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="frequent" id="frequency-frequent" />
-                              <Label htmlFor="frequency-frequent" className="text-sm">頻繁</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="normal" id="frequency-normal" />
-                              <Label htmlFor="frequency-normal" className="text-sm">普通</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="rare" id="frequency-rare" />
-                              <Label htmlFor="frequency-rare" className="text-sm">少ない</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">水の状態</Label>
-                          <RadioGroup value={waterData.quality} onValueChange={(value) => setWaterData({...waterData, quality: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="fresh" id="water-fresh" />
-                              <Label htmlFor="water-fresh" className="text-sm">新鮮</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="normal" id="water-normal" />
-                              <Label htmlFor="water-normal" className="text-sm">普通</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="dirty" id="water-dirty" />
-                              <Label htmlFor="water-dirty" className="text-sm">汚れている</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">メモ</Label>
-                          <Textarea
-                            placeholder="飲水の様子や気になることを記録"
-                            value={waterData.notes}
-                            onChange={(e) => setWaterData({...waterData, notes: e.target.value})}
-                          />
-                        </div>
-                        <Button onClick={() => handleSaveRecord('water')} className="hedgehog-button w-full">
-                          記録を保存
-                        </Button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <Link href="/health-record/water">
+                    <Button variant="outline" className="w-full h-16 flex flex-col items-center justify-center space-y-1 border-2 border-blue-200 hover:bg-blue-50">
+                      <Droplets className="w-5 h-5 text-blue-600" />
+                      <span className="text-xs text-blue-700">飲水記録</span>
+                    </Button>
+                  </Link>
 
-                  <Dialog open={openModal === 'health'} onOpenChange={(open) => setOpenModal(open ? 'health' : '')}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="w-full h-16 flex flex-col items-center justify-center space-y-1 border-2 border-red-200 hover:bg-red-50">
-                        <Stethoscope className="w-5 h-5 text-red-600" />
-                        <span className="text-xs text-red-700">健康チェック</span>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
-                      <DialogHeader>
-                        <DialogTitle className="flex items-center">
-                          <Stethoscope className="w-5 h-5 mr-2 text-red-600" />
-                          健康チェック
-                        </DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">目の状態</Label>
-                          <RadioGroup value={healthData.eyeCondition} onValueChange={(value) => setHealthData({...healthData, eyeCondition: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="clear" id="eyes-clear" />
-                              <Label htmlFor="eyes-clear" className="text-sm">澄んでいる</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="cloudy" id="eyes-cloudy" />
-                              <Label htmlFor="eyes-cloudy" className="text-sm">濁っている</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="discharge" id="eyes-discharge" />
-                              <Label htmlFor="eyes-discharge" className="text-sm">目やにがある</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">耳の状態</Label>
-                          <RadioGroup value={healthData.earCondition} onValueChange={(value) => setHealthData({...healthData, earCondition: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="clean" id="ears-clean" />
-                              <Label htmlFor="ears-clean" className="text-sm">きれい</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="dirty" id="ears-dirty" />
-                              <Label htmlFor="ears-dirty" className="text-sm">汚れている</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="odor" id="ears-odor" />
-                              <Label htmlFor="ears-odor" className="text-sm">臭いがある</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">皮膚の状態</Label>
-                          <RadioGroup value={healthData.skinCondition} onValueChange={(value) => setHealthData({...healthData, skinCondition: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="healthy" id="skin-healthy" />
-                              <Label htmlFor="skin-healthy" className="text-sm">健康</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="dry" id="skin-dry" />
-                              <Label htmlFor="skin-dry" className="text-sm">乾燥している</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="irritated" id="skin-irritated" />
-                              <Label htmlFor="skin-irritated" className="text-sm">荒れている</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">活動レベル</Label>
-                          <RadioGroup value={healthData.activityLevel} onValueChange={(value) => setHealthData({...healthData, activityLevel: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="very-active" id="activity-very-active" />
-                              <Label htmlFor="activity-very-active" className="text-sm">とても活発</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="active" id="activity-active" />
-                              <Label htmlFor="activity-active" className="text-sm">活発</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="normal" id="activity-normal" />
-                              <Label htmlFor="activity-normal" className="text-sm">普通</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="low" id="activity-low" />
-                              <Label htmlFor="activity-low" className="text-sm">あまり動かない</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">全体的な健康状態</Label>
-                          <RadioGroup value={healthData.overallCondition} onValueChange={(value) => setHealthData({...healthData, overallCondition: value})}>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="excellent" id="overall-excellent" />
-                              <Label htmlFor="overall-excellent" className="text-sm">とても良い</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="good" id="overall-good" />
-                              <Label htmlFor="overall-good" className="text-sm">良い</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="fair" id="overall-fair" />
-                              <Label htmlFor="overall-fair" className="text-sm">普通</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="concern" id="overall-concern" />
-                              <Label htmlFor="overall-concern" className="text-sm">心配</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">メモ</Label>
-                          <Textarea
-                            placeholder="健康状態で気になることを記録"
-                            value={healthData.notes}
-                            onChange={(e) => setHealthData({...healthData, notes: e.target.value})}
-                          />
-                        </div>
-                        <Button onClick={() => handleSaveRecord('health')} className="hedgehog-button w-full">
-                          記録を保存
-                        </Button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <Link href="/health-record/checkup">
+                    <Button variant="outline" className="w-full h-16 flex flex-col items-center justify-center space-y-1 border-2 border-red-200 hover:bg-red-50">
+                      <Stethoscope className="w-5 h-5 text-red-600" />
+                      <span className="text-xs text-red-700">健康チェック</span>
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
