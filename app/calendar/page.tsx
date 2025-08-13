@@ -47,8 +47,8 @@ export default function CalendarPage() {
     const birthdayEvents = [];
     const currentYear = new Date().getFullYear();
     
-    // 現在年から5年先まで誕生日イベントを生成
-    for (let year = currentYear - 2; year <= currentYear + 5; year++) {
+    // 現在年から10年先まで誕生日イベントを生成
+    for (let year = currentYear - 2; year <= currentYear + 10; year++) {
       petBirthdays.forEach(pet => {
         const birthDate = new Date(pet.birthDate);
         const birthYear = birthDate.getFullYear();
