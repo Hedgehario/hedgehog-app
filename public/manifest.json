@@ -1,6 +1,6 @@
 {
-  "name": "Hariny - ハリネズミ健康管理アプリ",
-  "short_name": "Hariny",
+  "name": "Hariness - ハリネズミ健康管理アプリ",
+  "short_name": "Hariness",
   "description": "ハリネズミの健康状態や日々の記録を簡単に管理できるPWAアプリです",
   "start_url": "/",
   "display": "standalone",
