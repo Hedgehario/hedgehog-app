@@ -51,8 +51,8 @@ export default function CalendarPage() {
     for (let year = currentYear - 2; year <= currentYear + 5; year++) {
       petBirthdays.forEach(pet => {
         const birthDate = new Date(pet.birthDate);
-        const age = year - birthDate.getFullYear();
-        
+        const birthYear = birthDate.getFullYear();
+        const age = year - birthYear;
         if (age >= 0) { // 生まれた年以降のみ
           const birthdayThisYear = `${year}-${String(birthDate.getMonth() + 1).padStart(2, '0')}-${String(birthDate.getDate()).padStart(2, '0')}`;
           
