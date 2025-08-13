@@ -33,14 +33,52 @@ export default function CalendarPage() {
     { id: 'birthday', name: '誕生日' }
   ];
 
-  const events = [
-    // 誕生日イベント（自動生成）
-    { id: 'birthday-momo', date: '2025-03-15', pet: 'momo', petName: 'モモ', type: 'birthday', title: 'モモの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '2歳の誕生日おめでとう！' },
-    { id: 'birthday-coco', date: '2025-12-10', pet: 'coco', petName: 'ココ', type: 'birthday', title: 'ココの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '3歳の誕生日おめでとう！' },
-    { id: 'birthday-hana', date: '2025-07-22', pet: 'hana', petName: 'ハナ', type: 'birthday', title: 'ハナの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '1歳の誕生日おめでとう！' },
-    { id: 'birthday-sora', date: '2025-09-05', pet: 'sora', petName: 'ソラ', type: 'birthday', title: 'ソラの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '2歳の誕生日おめでとう！' },
-    { id: 'birthday-yuki', date: '2025-01-18', pet: 'yuki', petName: 'ユキ', type: 'birthday', title: 'ユキの誕生日🎂', time: '終日', status: 'scheduled', priority: 'high', description: '1歳の誕生日おめでとう！' },
+  // ペットの誕生日データ
+  const petBirthdays = [
+    { id: 'momo', name: 'モモ', birthDate: '2023-03-15' },
+    { id: 'coco', name: 'ココ', birthDate: '2022-12-10' },
+    { id: 'hana', name: 'ハナ', birthDate: '2023-07-22' },
+    { id: 'sora', name: 'ソラ', birthDate: '2022-09-05' },
+    { id: 'yuki', name: 'ユキ', birthDate: '2023-01-18' }
+  ];
+
+  // 毎年の誕生日イベントを生成する関数
+  const generateBirthdayEvents = () => {
+    const birthdayEvents = [];
+    const currentYear = new Date().getFullYear();
     
+    // 現在年から5年先まで誕生日イベントを生成
+    for (let year = currentYear - 2; year <= currentYear + 5; year++) {
+      petBirthdays.forEach(pet => {
+        const birthDate = new Date(pet.birthDate);
+        const age = year - birthDate.getFullYear();
+        
+        if (age >= 0) { // 生まれた年以降のみ
+          const birthdayThisYear = `${year}-${String(birthDate.getMonth() + 1).padStart(2, '0')}-${String(birthDate.getDate()).padStart(2, '0')}`;
+          
+          birthdayEvents.push({
+            id: `birthday-${pet.id}-${year}`,
+            date: birthdayThisYear,
+            pet: pet.id,
+            petName: pet.name,
+            type: 'birthday',
+            title: `${pet.name}の誕生日🎂`,
+            time: '終日',
+            status: 'scheduled',
+            priority: 'high',
+            description: `${age}歳の誕生日おめでとう！`
+          });
+        }
+      });
+    }
+    
+    return birthdayEvents;
+  };
+
+  const events = [
+    // 毎年の誕生日イベントを動的に生成
+    ...generateBirthdayEvents(),
+
     // 今日の予定
     { id: 1, date: formatDate(new Date()), pet: 'momo', petName: 'モモ', type: 'health', title: '体重測定', time: '14:00', status: 'pending', priority: 'medium', description: '週1回の定期体重測定' },
     { id: 2, date: formatDate(new Date()), pet: 'coco', petName: 'ココ', type: 'grooming', title: '爪切り', time: '16:00', status: 'pending', priority: 'high', description: '前回から2週間経過' },
